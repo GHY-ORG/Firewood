@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render(SiteConfig.SiteUrl + "/bundles/styles")
+    @foreach (var i in ViewBag.Css ?? new string[] { })
+    {
+        @Styles.Render(i);
+    }
+    @Scripts.Render(SiteConfig.SiteUrl+"/bundles/jquery")
+    <!--[if lt IE 9]>
+        @Scripts.Render(SiteConfig.SiteUrl + "/bundles/ie8")
+    <![endif]-->
+</head>
+
+<body>
+    <!--Top-->
+    <ul class="hidden-xs hidden-sm nav-top">
+        <li>
+            <a href="http://www.ghy.cn" title="光华园" target="_blank">光华园</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/swufenews" title="新闻" target="_blank">新闻</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/idea08" title="思想" target="_blank">思想</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/study09" title="学习" target="_blank">学习</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/life" title="生活" target="_blank">生活</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/lit08" title="文苑" target="_blank">文苑</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/music09" title="音乐" target="_blank">音乐</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/movie10" title="电影" target="_blank">电影</a>
+        </li>
+        <li>
+            <a href="http://soft.ghy.cn" title="软件" target="_blank">软件</a>
+        </li>
+        <li>
+            <a href="http://bbs.ghy.cn" title="草堂茗香" target="_blank">草堂茗香</a>
+        </li>
+    </ul>
+    <!--Mobile Head and Nav-->
+    <nav class="visible-xs-block navbar navbar-fw">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@SiteConfig.SiteUrl/Home/Index">柴火</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/文娱">文娱</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/财经">财经</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/体育">体育</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/创意">创意</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/其他">其他</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!--Main-->
+    <div class="container">
+        <!--Head-->
+        <div class="hidden-xs hidden-sm row head">
+            <div class="col-md-9">
+                <a href="@SiteConfig.SiteUrl/Home/Index">
+                    <img src="@SiteConfig.SiteUrl/Resources/Site/img/logo.png" alt="">
+                </a>
+            </div>
+            <div class="col-md-3 search">
+                <form action="@SiteConfig.SiteUrl/Home/Search" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="输入关键词开始搜索..." aria-describedby="basic-addon2" name="title">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="visible-sm-block row head">
+            <a href="@SiteConfig.SiteUrl/Home/Index">
+                <img src="@SiteConfig.SiteUrl/Resources/Site/img/mobile-logo.png" alt="">
+            </a>
+        </div>
+        <!--Nav-->
+        <div class="hidden-xs row fw-nav">
+            <div class="col-md-9">
+                <ul class="nav-list">
+                    <li class="dropdown" id="nav1">
+                        <a href="" title="比赛"></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="nav1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/文娱">文娱</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/财经">财经</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/体育">体育</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/创意">创意</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/其他">其他</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="nav2">
+                        <a href="" title="讲座"></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="nav2">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/宣讲会">宣讲会</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/财经">财经</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/文化素质">文化素质</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/分享">分享</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/其他">其他</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="nav3">
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/演出" title="演出"></a>
+                    </li>
+                    <li id="nav4">
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/聚会" title="聚会"></a>
+                    </li>
+                    <li id="nav5">
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/公益" title="公益"></a>
+                    </li>
+                    <li id="nav6">
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/其他" title="其他"></a>
+                    </li>
+                </ul>
+            </div>
+            @if (@ViewBag.NickName == null)
+            {
+                <div class="col-md-3" id="before-log">
+                    <a href="@SiteConfig.SiteUrl/User/PostLogin">登录</a>
+                    <a href="@SiteConfig.SiteUrl/User/Register">注册</a>
+                </div>
+            }
+            else
+            {
+                <div class="hidden-xs hidden-sm col-md-3 nav-right" id="after-log">
+                    <div class="visible-lg-block user-img" id="user-pic"></div>
+                    <div class="user-name">
+                        <span>您好：</span>
+                        <span id="uname">@ViewBag.NickName</span>
+                    </div>
+                    <div class="user-btn">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </div>
+                </div>
+                <ul id="nav-on">
+                    <li class="col-md-6">
+                        <a href="@SiteConfig.SiteUrl/User/Center" title="个人中心">
+                            <span class="glyphicon glyphicon-cog nav-on-icon"></span>
+                            <span class="glyphicon-class">个人中心</span>
+                        </a>
+                    </li>
+                    <li class="col-md-6">
+                        <a href="@SiteConfig.SiteUrl/User/Exit" title="退出登录">
+                            <span class="glyphicon glyphicon-log-out nav-on-icon"></span>
+                            <span class="glyphicon-class">退出登录</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <!--Footer-->
+    <footer class="hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="ghy-logo"></div>
+                    <p>Copyright ©2001-2015 GHY.cn All rights reserved. 蜀ICP备07004602号</p>
+                    <p>
+                        西南财经大学党委宣传统战部 前进动力工作室&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if (@ViewBag.RoleList != null && new int[1] { 1 }.Except((int[])@ViewBag.RoleList).Count() == 0)
+                        {
+                            <a href="@SiteConfig.SiteUrl/Org/Register" title="社团/组织后台管理" target="_blank">社团/组织后台管理</a>
+                        }
+                        else if (@ViewBag.RoleList != null)
+                        {
+                            <a href="@SiteConfig.SiteUrl/Org/Index" title="社团/组织后台管理" target="_blank">社团/组织后台管理</a>
+                        }
+                    </p>
+                </div>
+                <div class="col-md-4" id="footer-right">
+                    <div id="footer-right-left">
+                        <p>
+                            <span>Phone:</span>
+                        </p>
+                        <p>
+                            <span>Email:</span>
+                        </p>
+                        <p>
+                            <span>Address:</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p>028-87092700</p>
+                        <p>ghyers@ghy.cn</p>
+                        <p>腾骧楼422室 前进动力工作室</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Mobile Footer-->
+    <footer class="hidden-md hidden-lg mobile-footer">
+        <div class="container">
+            @if (@ViewBag.RoleList != null && new int[1] { 1 }.Except((int[])@ViewBag.RoleList).Count() == 0)
+            {
+                <p><a href="@SiteConfig.SiteUrl/Org/Register" title="社团/组织后台管理" target="_blank">社团/组织后台管理</a></p>
+            }
+            else if (@ViewBag.RoleList != null)
+            {
+                <p><a href="@SiteConfig.SiteUrl/Org/Index" title="社团/组织后台管理" target="_blank">社团/组织后台管理</a></p>
+            }
+            <p>Copyright ©2001-2015 GHY.cn All Rights Reserved.</p>
+            <p>tel:028-87092700 email:ghyers@ghy.cn</p>
+        </div>
+    </footer>
+
+    @Scripts.Render(SiteConfig.SiteUrl + "/bundles/scripts")
+    @foreach (var i in ViewBag.Js ?? new string[] { })
+    {
+        @Scripts.Render(i);
+    }
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+﻿@using DataSource.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "个人中心 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/index_styles",
+        "~/bundles/org_styles"
+    };
+    ViewBag.Js = new string[]{
+        "~/bundles/index_scripts"
+    };
+}
+<div class="row">
+    <div class="col-md-7">
+        <h2 class="orange-title">个人中心<small> Personal Center</small></h2>
+        @foreach (var item in ViewData["ActList"] as List<Activity>)
+        {
+            <a href="~/Act/Index/ID/@item.ActID" title="">
+                <div class="col-sm-12 org-li">
+                    <h4>@item.ActName<small>@item.BeginTime.ToString("yyyy-MM-dd") ~ @item.EndTime.ToString("yyyy-MM-dd")</small></h4>
+                    <p class="text-overflow">@item.ActIntro</p>
+                </div>
+            </a>
+        }
+    </div>
+    <div class="col-md-4 col-md-offset-1 fw-border">
+        <div class="col-md-5">
+            <img src="~/PicPool/Get/ID/@ViewBag.OrgID/Type/1/Size/100x100">
+        </div>
+        <div class="col-md-7">
+            <h5 id="org-name">欢迎，@ViewBag.NickName</h5>
+            <p>
+                <a href="~User/Center">| 修改我的资料 |</a>
+                <a href="~/User/Exit" style="margin-left:20px">退出</a>
+            </p>
+        </div>
+    </div>
+</div>

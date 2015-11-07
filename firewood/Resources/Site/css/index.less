@@ -1,0 +1,213 @@
+﻿@orange: #fbb04b;
+@screen-lg-min: 1200px;
+@screen-md-min: 992px;
+@screen-sm-min: 768px;
+#latest-events {
+    margin-bottom: 30px;
+
+    > ul {
+        width: 100%;
+        height: 60px;
+        margin-bottom: 30px;
+
+        > ul {
+            width: inherit;
+            height: 30px;
+
+            .conbold {
+                font-weight: bolder;
+            }
+
+            #con1 {
+                margin-left: 5px;
+            }
+
+            #con2 {
+                margin-left: 78px;
+            }
+
+            > li {
+                float: left;
+                line-height: 30px;
+                text-align: center;
+
+                > a {
+                    height: 14px;
+                    line-height: 14px;
+                    margin: 8px 0;
+                    padding: 0 8px;
+                    display: block;
+                    border-right: 1px solid #a49c95;
+                }
+            }
+        }
+    }
+
+    .events-block {
+        > .col-sm-6 {
+            margin-bottom: 40px;
+        }
+
+        h4 {
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-top: 0;
+            font-weight: bold;
+            color:#777;
+        }
+        p {
+            margin-bottom:0;
+            line-height: 20px;
+        }
+
+        .img-events {
+            img {
+                @media (min-width: @screen-lg-min) {
+                    width: 130px;
+                    height: 130px;
+                }
+
+                @media (max-width: @screen-lg-min) {
+                    width: 110px;
+                    height: 110px;
+                }
+
+                @media (max-width: @screen-sm-min) {
+                    width: 90px;
+                    height: 90px;
+                }
+            }
+
+            a:hover {
+                opacity: .5;
+            }
+        }
+    }
+}
+.index-right{
+    p{
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+.event-info {
+    .poster {
+        padding-left: 0;
+
+        > img {
+            width: 100%;
+            height: 345px;
+        }
+
+        > h3 {
+            color: @orange;
+            text-align: center;
+        }
+
+        #share {
+            margin: 20px 0;
+
+            > h4 {
+                float: left;
+            }
+
+            .bdsharebuttonbox {
+                float: right;
+            }
+        }
+
+        .others {
+            .col-xs-4 {
+                padding: 0;
+                text-align: center;
+            }
+
+            img {
+                width: 60px;
+                height: 60px;
+                margin: 10px 0;
+            }
+        }
+    }
+
+    .event-con {
+        h2 {
+            font-size: 1.75em;
+            margin: 0 0 30px 0;
+            text-align:center;
+            font-weight:bold;
+            color:#aaa;
+        }
+
+        h4 {
+            font-weight: 700;
+            color:#777;
+        }
+
+        h5 {
+            color: #a1a1a1;
+            font-size: 1em;
+            margin-bottom: 25px;
+        }
+
+        p {
+            color: #a1a1a1;
+            font-size: 1em;
+            white-space: normal;
+        }
+    }
+
+    .comment {
+        padding-left: 0;
+
+        h3, h4 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        span {
+            margin-left: 20px;
+        }
+
+        .col-xs-2 {
+            text-align: center;
+
+            > img {
+                width: 65px;
+                height: 65px;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+.vote{
+  h5,p{
+    color: #a1a1a1;
+    font-size: 1em;
+    white-space: normal;
+  }
+  .vote-info{
+    margin-bottom: 20px;
+    h3{
+      margin-top: 0;
+    }
+    img{
+      width: 160px;
+      height: 160px;
+    }
+    #vote-img{
+      width: 160px;
+      height: 160px;
+      background-color: #aaa;
+    }
+    .vote-on{
+      background-image: url(../Resources/Site/img/vote-on.png);
+    }
+  }
+}

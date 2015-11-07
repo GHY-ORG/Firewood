@@ -1,0 +1,159 @@
+﻿@model PublishModels
+@{
+    Layout = "~/Views/Shared/Org_Layout.cshtml";
+    ViewBag.Title = "社团/组织发布活动 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/form_styles",
+        "~/bundles/org_styles"
+    };
+    ViewBag.Js = new string[]{
+        "~/bundles/publish_scripts"
+    };
+}
+
+<div class="col-md-7 fw-border form-style">
+    <h3>发布活动</h3>
+    @using (Html.BeginForm("PostPublish", "Org", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(x => x.ActName, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(x => x.ActName, new { @class = "form-control", required = "required" })
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.ActName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Place, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                <select class="form-control" name="Place">
+                    <option>800人厅</option>
+                    <option>300人厅</option>
+                    <option>视频会议厅</option>
+                    <option>国际报告厅</option>
+                    <option>音乐厅</option>
+                    <option>教学楼</option>
+                    <option>户外</option>
+                    <option>其他</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">活动分类</label>
+            <div class="col-sm-9">
+                <div class="col-md-6" style="padding-left:0">
+                    <select class="form-control" name="Class1" id="class1">
+                        <option>比赛</option>
+                        <option>讲座</option>
+                        <option>演出</option>
+                        <option>聚会</option>
+                        <option>公益</option>
+                        <option>其他</option>
+                    </select>
+                </div>
+                <div class="col-md-6" style="padding-right:0">
+                    <select class="form-control" name="Class2" id="class2"></select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.BeginTime, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(x => x.BeginTime, new { @class = "pic-time form-control my-datepicker", required = "required" })
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.BeginTime)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.EndTime, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(x => x.EndTime, new { @class = "pic-time form-control my-datepicker", required = "required" })
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.EndTime)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Money, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                <div class="radio">
+                    <label><input type="radio" name="money" value="yes">是</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="money" value="no">否</label>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.Money)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Score, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                <div class="radio">
+                    <label><input type="radio" name="score" value="yes">是</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="score" value="no">否</label>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.Score)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Award, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                <div class="radio">
+                    <label><input type="radio" name="award" value="yes">是</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="award" value="no">否</label>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 error-text">
+                    @Html.ValidationMessageFor(x => x.Score)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Vote, new { @class = "col-sm-3 control-label" })
+            <div class="col-md-9">
+                <div class="radio">
+                    <label><input type="radio" name="vote" value="yes">是</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="vote" value="no">否</label>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.Vote)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">活动海报</label>
+            <div class="col-sm-9">
+                <input type="file" name="file" accept="image/*" required />
+            </div>
+            <div class="col-md-8 col-md-offset-4">
+                支持jpg/png/gif/jpeg格式，大小不超过20M
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ActIntro, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextAreaFor(x => x.ActIntro, new { @class = "form-control", placeholder = "1000字以内~", rows = "10" })
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 error-text">
+                @Html.ValidationMessageFor(x => x.ActIntro)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-warning btn-lg btn-block">发布</button>
+            </div>
+        </div>
+    }
+</div>

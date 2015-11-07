@@ -1,0 +1,23 @@
+﻿.form-style {
+  margin: 0 auto;
+}
+@media (min-width: 992px) {
+  .form-style {
+    width: 50%;
+  }
+}
+.form-style h3 {
+  margin: 30px 0;
+  font-weight: bold;
+  color: #aaa;
+  text-align: center;
+}
+.form-style .control-label {
+  font-weight: bold;
+  color: #a1a1a1;
+  text-align: left;
+}
+.form-style .forget-pwd {
+  text-align: right;
+}
+/*# sourceMappingURL=form.css.map */

@@ -1,0 +1,63 @@
+﻿@model firewood.UpdateModels
+@{
+    Layout = "~/Views/Shared/Org_Layout.cshtml";
+    ViewBag.Title = "社团/组织后台管理 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/org_styles"
+    };
+}
+<div class="col-md-7">
+    <div class="col-sm-12 org-btn">
+        <a class="btn btn-warning btn-white" href="~/Org/Register" role="button">新增社团</a>
+        <a class="btn btn-warning btn-right" href="~/Org/Search" role="button">社团查询</a>
+    </div>
+    <div class="col-sm-12 fw-border">
+        <div class="col-sm-4">
+            <img src="~/PicPool/Get/ID/@ViewBag.OrgID/Type/1/Size/150x150">
+        </div>
+        <div class="col-sm-8">
+            @using (Html.BeginForm("PostUpdate", "Org", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label class="col-md-4 control-label">名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" disabled="disabled" value="@ViewBag.OrgName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.OrgDepartment, new { @class = "col-md-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.OrgDepartment, new { @class = "form-control", required = "required", @Value = @ViewBag.OrgDepartment })
+                    </div>
+                    <div class="col-md-8 col-md-offset-4 error-text">
+                        @Html.ValidationMessageFor(x => x.OrgDepartment)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">联系方式</label>
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(x => x.OrgContact, new { @class = "form-control", required = "required", @type = "tel", @Value = @ViewBag.OrgContact })
+                    </div>
+                    <div class="col-md-8 col-md-offset-4 error-text">
+                        @Html.ValidationMessageFor(x => x.OrgContact)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(x => x.OrgIntro, new { @class = "col-md-4 control-label" })
+                    <div class="col-sm-8">
+                        <textarea name="OrgIntro" rows="5" class="form-control" required>@ViewBag.OrgIntro</textarea>
+                    </div>
+                    <div class="col-md-8 col-md-offset-4 error-text">
+                        @Html.ValidationMessageFor(x => x.OrgIntro)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-warning btn-lg btn-block">修改</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

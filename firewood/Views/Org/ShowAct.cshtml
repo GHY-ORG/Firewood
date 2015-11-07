@@ -1,0 +1,47 @@
+﻿@using DataSource.Models;
+@{
+    Layout = "~/Views/Shared/Org_Layout.cshtml";
+    ViewBag.Title = "社团/组织后台管理 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/org_styles"
+    };
+    ViewBag.Js = new string[]{
+        "~/bundles/page_scripts"
+    };
+}
+<div class="col-md-7">
+    <div class="col-sm-12 org-btn">
+        <a class="btn btn-warning" href="~/Org/ShowAct/ID/@ViewBag.OrgID/Page/1" role="button">我的发布</a>
+        <a class="btn btn-warning btn-white btn-right" href="~/Org/Publish/ID/@ViewBag.OrgID" role="button">发布活动</a>
+    </div>
+    @foreach (var item in ViewData["ActList"] as List<Activity>)
+    {
+        <a href="~/Act/Index/ID/@item.ActID" title="">
+            <div class="col-sm-12 org-li">
+                <h4>@item.ActName<small>@item.BeginTime.ToString("yyyy-MM-dd") ~ @item.EndTime.ToString("yyyy-MM-dd")</small></h4>
+                <p class="text-overflow">@item.ActIntro</p>
+            </div>
+        </a>
+    }
+    <!--Pagination Begin-->
+    <nav class="text-center" id="pagenav">
+        <ul class="pagination">
+            <li class="disabled">
+                <a id="pre" href="~/Org/ShowAct/ID/@ViewBag.OrgID/Page/" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @{int j = (int)Math.Ceiling((double)ViewBag.Count / 10.0);}
+            @for (int i = 1; i < j + 1; i++)
+            {
+                <li><a href="~/Org/ShowAct/ID/@ViewBag.OrgID/Page/@(i)" class="pageli" id="pageli@(i)">@(i)</a></li>
+            }
+            <li>
+                <a href="~/Org/ShowAct/ID/@ViewBag.OrgID/Page/" aria-label=" next" id="next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!--Pagination End-->
+</div>

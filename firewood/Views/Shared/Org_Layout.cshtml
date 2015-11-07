@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/styles")
+    @foreach (var i in ViewBag.Css ?? new string[] { })
+    {
+        @Styles.Render(i);
+    }
+    @Scripts.Render("~/bundles/jquery")
+    <!--[if lt IE 9]>
+        @Scripts.Render("~/bundles/ie8")
+    <![endif]-->
+</head>
+
+<body>
+    <!--Top-->
+    <ul class="hidden-xs hidden-sm nav-top">
+        <li>
+            <a href="http://www.ghy.cn" title="光华园" target="_blank">光华园</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/swufenews" title="新闻" target="_blank">新闻</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/idea08" title="思想" target="_blank">思想</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/study09" title="学习" target="_blank">学习</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/life" title="生活" target="_blank">生活</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/lit08" title="文苑" target="_blank">文苑</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/music09" title="音乐" target="_blank">音乐</a>
+        </li>
+        <li>
+            <a href="http://www.ghy.cn/movie10" title="电影" target="_blank">电影</a>
+        </li>
+        <li>
+            <a href="http://soft.ghy.cn" title="软件" target="_blank">软件</a>
+        </li>
+        <li>
+            <a href="http://bbs.ghy.cn" title="草堂茗香" target="_blank">草堂茗香</a>
+        </li>
+    </ul>
+    <!--Mobile Head and Nav-->
+    <nav class="visible-xs-block navbar navbar-fw">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">柴火后台管理</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="~/Home/Index/Type/2/Class/文娱">文娱</a></li>
+                    <li><a href="~/Home/Index/Type/2/Class/财经">财经</a></li>
+                    <li><a href="~/Home/Index/Type/2/Class/体育">体育</a></li>
+                    <li><a href="~/Home/Index/Type/2/Class/创意">创意</a></li>
+                    <li><a href="~/Home/Index/Type/2/Class/其他">其他</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!--Main-->
+    <div class="container">
+        <!--Head-->
+        <div class="hidden-xs hidden-sm row head">
+            <div class="col-md-9">
+                <a href="~/Org/Index">
+                    <img src="@SiteConfig.SiteUrl/Resources/Site/img/org-logo.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @RenderBody()
+            <div class="col-md-4 col-md-offset-1 fw-border">
+                <div class="col-md-5">
+                    <img src="~/PicPool/Get/ID/@ViewBag.OrgID/Type/1/Size/100x100">
+                </div>
+                <div class="col-md-7">
+                    <h5 id="org-name">欢迎，@ViewBag.NickName</h5>
+                    <p>
+                        <a href="~User/Center">| 修改我的资料 |</a>
+                        <a href="~/User/Exit" style="margin-left:20px">退出</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <footer class="hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="ghy-logo"></div>
+                    <p>Copyright ©2001-2015 GHY.cn All rights reserved. 蜀ICP备07004602号</p>
+                    <p>
+                        西南财经大学党委宣传统战部 前进动力工作室&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="~/Home/Index" title="返回柴火首页">返回柴火首页</a>
+                    </p>
+                </div>
+                <div class="col-md-4" id="footer-right">
+                    <div id="footer-right-left">
+                        <p>
+                            <span>Phone:</span>
+                        </p>
+                        <p>
+                            <span>Email:</span>
+                        </p>
+                        <p>
+                            <span>Address:</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p>028-87092700</p>
+                        <p>ghyers@ghy.cn</p>
+                        <p>腾骧楼422室 前进动力工作室</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Mobile Footer-->
+    <footer class="hidden-md hidden-lg mobile-footer">
+        <div class="container">
+            <p><a href="~/Home/Index" title="返回柴火首页">返回柴火首页</a></p>
+            <p>Copyright ©2001-2015 GHY.cn All Rights Reserved.</p>
+            <p>tel:028-87092700 email:ghyers@ghy.cn</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/scripts")
+    @foreach (var i in ViewBag.Js ?? new string[] { })
+    {
+        @Scripts.Render(i);
+    }
+</body>
+</html>

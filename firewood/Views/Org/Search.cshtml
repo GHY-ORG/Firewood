@@ -1,0 +1,62 @@
+﻿@using DataSource.Models;
+@model firewood.RegisterModels
+@{
+    Layout = "~/Views/Shared/Org_Layout.cshtml";
+    ViewBag.Title = "社团/组织后台管理 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/org_styles"
+    };
+    ViewBag.Js = new string[]{
+        "~/bundles/page_scripts"
+    };
+}
+<div class="col-md-7">
+    <div class="col-sm-12 org-btn">
+        <a class="btn btn-warning btn-white" href="~/Org/Register" role="button">新增社团</a>
+        <a class="btn btn-warning btn-right" href="~/Org/Search" role="button">社团查询</a>
+    </div>
+    <div class="col-sm-12 fw-border">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>社团名称</th>
+                    <th>所属部门</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewData["OrgList"] as List<Org>)
+                {
+                    <tr>
+                        <td>@item.OrgName</td>
+                        <td>@item.OrgDepartment</td>
+                        <td><a href="~/Org/Update/OrgID/@item.OrgID" class="btn btn-warning">修改</a> <a href="~/Org/Del/OrgID/@item.OrgID" class="btn btn-default">注销</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <!--Pagination Begin-->
+        <nav class="text-center" id="pagenav">
+            <ul class="pagination">
+                <li class="disabled">
+                    <a id="pre" href="~/Org/Search/Page/" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @{int j = (int)Math.Ceiling((double)ViewBag.Count / 10.0);}
+                @for (int i = 1; i < j + 1; i++)
+                {
+                    <li><a href="~/Org/Search/Page/@(i)" class="pageli" id="pageli@(i)">@(i)</a></li>
+                }
+                <li>
+                    <a href="~/Org/Search/Page/" aria-label=" next" id="next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--Pagination End-->
+    </div>
+</div>

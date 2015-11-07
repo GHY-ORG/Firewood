@@ -1,0 +1,181 @@
+﻿@model firewood.CommentModels
+@using DataSource.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "活动详情 柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        "~/bundles/index_styles"
+    };
+}
+<div class="row">
+    <div class="col-md-8 fw-border event-info">
+        @{
+            Activity item = ViewData["Act"] as Activity;
+            <div class="title" id="event-info"></div>
+            <div class="col-sm-5 poster">
+                <img src="~/PicPool/Get/ID/@item.ActID/Type/2/Width/280" alt="" class="img-thumbnail">
+                <h3>@ViewBag.Sum 人想参加</h3>
+                <a href="~/Act/Join/ID/@item.ActID" class="btn btn-warning btn-lg btn-block" id="act-btn">@ViewBag.Button</a>
+                <div id="share" class="clearfix">
+                    <h4>分享至</h4>
+                    <div class="bdsharebuttonbox bdshare-button-style0-24" data-bd-bind="1429504258458">
+                        <a href="#" class="bds_more" data-cmd="more"></a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    </div>
+                    <script>
+                        window._bd_share_config = {
+                            "common": {
+                                "bdSnsKey": {},
+                                "bdText": "",
+                                "bdMini": "2",
+                                "bdMiniList": false,
+                                "bdPic": "",
+                                "bdStyle": "0",
+                                "bdSize": "24"
+                            },
+                            "share": {}
+                        };
+                        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                    </script>
+                </div>
+            </div>
+            <div class="col-sm-7 event-con">
+                <h2>@item.ActName</h2>
+                <h4>活动时间</h4>
+                <h5>@item.BeginTime.ToString("yyyy-MM-dd") ~ @item.EndTime.ToString("yyyy-MM-dd")</h5>
+                <h4>活动地点</h4>
+                <h5>@item.Place</h5>
+                <h4>活动附属</h4>
+                <h5>@ViewBag.Type</h5>
+                <h4>举办组织</h4>
+                <h5>@ViewBag.OrgName</h5>
+                <h4>活动简介</h4>
+                <p>@item.ActIntro</p>
+            </div>
+    <div class="col-md-12 comment">
+        <h3>评论区</h3>
+        <div class="row">
+            @{
+                List<CommentModels> commentList = ViewData["commentList"] as List<CommentModels>;
+                if (commentList != null)
+                {
+                    for (int i = 0; i < commentList.Count; i++)
+                    {
+                        <div class="col-xs-2">
+                            <img src="@commentList[i].UserPic" alt="" class="img-circle">
+                        </div>
+                        <div class="col-xs-9 col-xs-offset-1">
+                            <h4>
+                                @commentList[i].NickName
+                            @if (commentList[i].hasJoin)
+                            {<span class="label label-warning">参加</span>}
+                        </h4>
+                        <p>@commentList[i].ComCon</p>
+                        <hr class="divider">
+                    </div>
+                    }
+                }
+            }
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                    添加评论
+                </button>
+            </div>
+            <div class="col-xs-12">
+                <form action="~/Act/Comment/ID/@item.ActID" method="post" id="collapseComment" class="form-horizontal collapse">
+                    @Html.AntiForgeryToken()
+                    @Html.TextAreaFor(x => x.ComCon, new { @style = "width:100%;border:2px solid #F0AD4E;margin-top:5px;", rows = "6", placeholder = "请添加评论，评论不多于50字哟~" })
+                    <span id="error" style="color:red;"></span>
+                    <button class="btn btn-warning btn-block" id="submit">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+    </div>
+
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-3 col-lg-offset-1 index-right">
+        <div class="fw-border">
+            <div class="title" id="my-events"></div>
+            <p>
+                <a href="">今日 15:30 - 情人坡音乐LIVE</a>
+            </p>
+            <p>
+                <a href="">明日 13:55 - CNKI论文数据库使用培训</a>
+            </p>
+            <p>
+                <a href="">11月16日 - 财务案例大赛半决赛</a>
+            </p>
+            <p>
+                <a href="">12月19日 - GHY年终趴</a>
+            </p>
+        </div>
+        <div class="fw-border">
+            <div class="title" id="topic-events"></div>
+            <p>
+                <a href="">“时光任意门”校园影像大赛</a>
+            </p>
+            <p>
+                <a href="">情人坡音乐LIVE</a>
+            </p>
+            <p>
+                <a href="">财务案例大赛半决赛</a>
+            </p>
+            <p>
+                <a href="">CNKI论文数据库使用培训</a>
+            </p>
+            <p>
+                <a href="">“九时一刻”校园影像大赛</a>
+            </p>
+            <p>
+                <a href="">生活网试吃</a>
+            </p>
+            <p>
+                <a href="">闪亮之星</a>
+            </p>
+        </div>
+        <div class="fw-border join-us">
+            <div class="title" id="join-us"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>轮滑社</h5>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>森林音乐社</h5>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>学生实验超市</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var $act_btn = $("#act-btn");
+        var text = $act_btn.text();
+        if (text == "您已参与") {
+            $act_btn.attr("disabled", true);
+            $act_btn.attr("href", "#");
+        }
+        $("#ComCon").text("");
+        $("#submit").click(function () {
+            if ($("#ComCon").val().length == 0) {
+                document.getElementById("error").innerHTML = "必填";
+                return false;
+            }
+            if ($("#ComCon").val().length > 50) {
+                document.getElementById("error").innerHTML = "评论不多于50字~";
+                return false;
+            }
+            $("#collapseComment").submit();
+        });
+    });
+</script>

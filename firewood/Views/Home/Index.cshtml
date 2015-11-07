@@ -1,0 +1,133 @@
+﻿@using DataSource.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "柴火 | 西南财经大学学生活动发布平台";
+    ViewBag.Css = new string[]{
+        SiteConfig.SiteUrl+"/bundles/index_styles"
+    };
+    ViewBag.Js = new string[]{
+        SiteConfig.SiteUrl+"/bundles/index_scripts"
+    };
+}
+<div class="row">
+    <div class="col-md-8 fw-border" id="latest-events">
+        <div class="title"></div>
+        <ul class="hidden-xs hidden-sm">
+            <ul>
+                <li class="conbold">条件筛选 &gt; </li>
+                <li class="conbold" id="con1">按地点</li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/800人厅" title="800人厅">800人厅</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/300人厅" title="300人厅">300人厅</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/视频会议厅" title="视频会议厅">视频会议厅</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/国际报告厅" title="国际报告厅">国际报告厅</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/音乐厅" title="音乐厅">音乐厅</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/教学楼" title="教学楼">教学楼</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/户外" title="户外">户外</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Place/其他" title="其他">其他</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="conbold" id="con2">按其他</li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Type/2" title="加分">加分</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Type/3" title="第二课堂认定">第二课堂认定</a>
+                </li>
+                <li>
+                    <a href="@SiteConfig.SiteUrl/Home/Index/Type/1" title="奖金">奖金</a>
+                </li>
+            </ul>
+        </ul>
+        <div class="row events-block">
+            @foreach (var item in ViewData["ActList"] as List<Activity>)
+            {
+                <div class="col-sm-6 index-main-block">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="img-events">
+                                <a href="@SiteConfig.SiteUrl/Act/Index/ID/@item.ActID" target="_blank" title="@item.ActName">
+                                    <img src="@SiteConfig.SiteUrl/PicPool/Get/ID/@item.OrgID/Type/1/Size/130x130" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <h4>@item.ActName</h4>
+                            <p>@item.ActIntro</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-4 col-lg-3 col-lg-offset-1 index-right">
+        <div class="fw-border">
+            <div class="title" id="my-events"></div>
+            <p>
+                <a href="">今日 15:30 - 情人坡音乐LIVE</a>
+            </p>
+            <p>
+                <a href="">明日 13:55 - CNKI论文数据库使用培训</a>
+            </p>
+            <p>
+                <a href="">11月16日 - 财务案例大赛半决赛</a>
+            </p>
+            <p>
+                <a href="">12月19日 - GHY年终趴</a>
+            </p>
+        </div>
+        <div class="fw-border">
+            <div class="title" id="topic-events"></div>
+            <p>
+                <a href="">“时光任意门”校园影像大赛</a>
+            </p>
+            <p>
+                <a href="">光华园网站音乐网情人坡音乐LIVE</a>
+            </p>
+            <p>
+                <a href="">第三届财务案例大赛半决赛</a>
+            </p>
+            <p>
+                <a href="">CNKI论文数据库使用培训</a>
+            </p>
+            <p>
+                <a href="">第五届环球商务之旅系列赛</a>
+            </p>
+            <p>
+                <a href="">第十一届闪亮之星</a>
+            </p>
+        </div>
+        <div class="fw-border join-us">
+            <div class="title" id="join-us"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>轮滑社</h5>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>森林音乐社</h5>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
+                    <h5>学生实验超市</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
