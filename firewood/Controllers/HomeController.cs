@@ -16,6 +16,13 @@ namespace firewood.Controllers
                 return SiteConfig.Container.GetExportedValueOrDefault<IAccountStrategy>();
             }
         }
+        public IAuthorizeStrategy AuthorizeStrategy
+        {
+            get
+            {
+                return SiteConfig.Container.GetExportedValueOrDefault<IAuthorizeStrategy>();
+            }
+        }
 
         ActService actService = new ActService();
         OrgService orgService = new OrgService();
@@ -26,6 +33,8 @@ namespace firewood.Controllers
             validUser();
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.ShowIndexAct(8, 1);
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(100, 1);
             return View();
         }
 
@@ -93,7 +102,7 @@ namespace firewood.Controllers
                 Session["NickName"] = ViewBag.NickName;
 
                 //判断权限
-                ViewBag.RoleList = new int[2] { 2, 3 };// AuthorizeStrategy.GetRole(userid);
+                ViewBag.RoleList = AuthorizeStrategy.GetRole(userid);
                 Session["RoleList"] = ViewBag.RoleList;
             }
         }

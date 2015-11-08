@@ -176,7 +176,9 @@
     <Content Include="Resources\Site\js\index.js" />
     <Content Include="Resources\Site\js\page.js" />
     <Content Include="Resources\Site\js\publish.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

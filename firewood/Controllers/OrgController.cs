@@ -34,8 +34,7 @@ namespace firewood.Controllers
             ViewBag.NickName = Session["NickName"].ToString();
             int[] roleList = Session["RoleList"] as int[];
             if (roleList == null) return Redirect("~/Home/Index");
-            //ViewData["OrgList"] = orgService.GetOrgList(AuthorizeStrategy.GetRoleName(roleList));
-            ViewData["OrgList"] = orgService.GetOrgList(new string[2] { "bde3644c-47f7-427e-b13d-0f3242f03a4c", "f8cb16ba-c753-449a-9f48-b6093c32b482" });
+            ViewData["OrgList"] = orgService.GetOrgList(AuthorizeStrategy.GetRoleName(roleList));
             return View();
         }
 
@@ -227,7 +226,7 @@ namespace firewood.Controllers
             if (file != null && file.ContentLength < 1024 * 1024 * 20)
             {
 
-                string path = GetPath(act.ActID.ToString(), "Act")+ DateTime.Now.Ticks + ".png";
+                string path = GetPath(act.ActID.ToString(), "Act") + DateTime.Now.Ticks + ".png";
                 string absolutePath = SiteConfig.SitePath;
                 string pathWithFileName = absolutePath + path;
                 using (var stream = file.InputStream)

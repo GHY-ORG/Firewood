@@ -66,12 +66,21 @@ namespace DAL
 
         public List<Guid> GetActListByUserID(Guid userid)
         {
-            using(var db = new FirewoodContext())
+            using (var db = new FirewoodContext())
             {
                 var join = (from o in db.Joins
                             where o.UserID.Equals(userid) && o.Status > 0
                             select o.ActID);
                 return join.ToList<Guid>();
+            }
+        }
+
+        public List<Guid> GetTopActList()
+        {
+            using (var db = new FirewoodContext())
+            {
+                var result = db.Joins.GroupBy(x => x.ActID).OrderByDescending(x => x.Count()).Select(x => x.Key).ToList<Guid>();
+                return result;
             }
         }
     }
