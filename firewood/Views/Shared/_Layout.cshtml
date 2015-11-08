@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +10,11 @@
     {
         @Styles.Render(i);
     }
-    @Scripts.Render(SiteConfig.SiteUrl+"/bundles/jquery")
+    @Scripts.Render(SiteConfig.SiteUrl + "/bundles/jquery")
     <!--[if lt IE 9]>
         @Scripts.Render(SiteConfig.SiteUrl + "/bundles/ie8")
     <![endif]-->
 </head>
-
 <body>
     <!--Top-->
     <ul class="hidden-xs hidden-sm nav-top">
@@ -257,12 +255,10 @@
             <p>tel:028-87092700 email:ghyers@ghy.cn</p>
         </div>
     </footer>
-
     @Scripts.Render(SiteConfig.SiteUrl + "/bundles/scripts")
     @foreach (var i in ViewBag.Js ?? new string[] { })
     {
         @Scripts.Render(i);
     }
 </body>
-
 </html>
