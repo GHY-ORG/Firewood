@@ -40,6 +40,8 @@ namespace firewood.Controllers
 
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.ShowIndexAct(8, 1);
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(100, 1);
             return View();
         }
 
