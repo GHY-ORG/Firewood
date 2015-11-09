@@ -1,22 +1,20 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/bundles/styles")
+    @Styles.Render(SiteConfig.SiteUrl + "/bundles/styles")
     @foreach (var i in ViewBag.Css ?? new string[] { })
     {
         @Styles.Render(i);
     }
-    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render(SiteConfig.SiteUrl + "/bundles/jquery")
     <!--[if lt IE 9]>
-        @Scripts.Render("~/bundles/ie8")
+        @Scripts.Render(SiteConfig.SiteUrl + "/bundles/ie8")
     <![endif]-->
 </head>
-
 <body>
     <!--Top-->
     <ul class="hidden-xs hidden-sm nav-top">
@@ -67,11 +65,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="~/Home/Index/Type/2/Class/文娱">文娱</a></li>
-                    <li><a href="~/Home/Index/Type/2/Class/财经">财经</a></li>
-                    <li><a href="~/Home/Index/Type/2/Class/体育">体育</a></li>
-                    <li><a href="~/Home/Index/Type/2/Class/创意">创意</a></li>
-                    <li><a href="~/Home/Index/Type/2/Class/其他">其他</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/文娱">文娱</a></li>
+                    <li><a href="@SiteConfig.SiteUrl+/Home/Index/Type/2/Class/财经">财经</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/体育">体育</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/创意">创意</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/其他">其他</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -94,13 +92,13 @@
             @RenderBody()
             <div class="col-md-4 col-md-offset-1 fw-border">
                 <div class="col-md-5">
-                    <img src="~/PicPool/Get/ID/@ViewBag.OrgID/Type/1/Size/100x100">
+                    <img src="@SiteConfig.SiteUrl/PicPool/Get/ID/@ViewBag.UserID/Type/3/Size/100x100">
                 </div>
                 <div class="col-md-7">
                     <h5 id="org-name">欢迎，@ViewBag.NickName</h5>
                     <p>
-                        <a href="~User/Center">| 修改我的资料 |</a>
-                        <a href="~/User/Exit" style="margin-left:20px">退出</a>
+                        <a href="http://ghy.swufe.edu.cn/GHY_SSO/Home/Index" title="修改我的资料" target="_blank">| 修改我的资料 |</a>
+                        <a href="@SiteConfig.SiteUrl/User/Exit" style="margin-left:20px" title="退出">退出</a>
                     </p>
                 </div>
             </div>
@@ -142,12 +140,12 @@
     <!--Mobile Footer-->
     <footer class="hidden-md hidden-lg mobile-footer">
         <div class="container">
-            <p><a href="~/Home/Index" title="返回柴火首页">返回柴火首页</a></p>
+            <p><a href="@SiteConfig.SiteUrl/Home/Index" title="返回柴火首页">返回柴火首页</a></p>
             <p>Copyright ©2001-2015 GHY.cn All Rights Reserved.</p>
             <p>tel:028-87092700 email:ghyers@ghy.cn</p>
         </div>
     </footer>
-    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render(SiteConfig.SiteUrl+"/bundles/scripts")
     @foreach (var i in ViewBag.Js ?? new string[] { })
     {
         @Scripts.Render(i);

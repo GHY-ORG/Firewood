@@ -4,16 +4,16 @@
     Layout = "~/Views/Shared/Org_Layout.cshtml";
     ViewBag.Title = "社团/组织后台管理 柴火 | 西南财经大学学生活动发布平台";
     ViewBag.Css = new string[]{
-        "~/bundles/org_styles"
+        SiteConfig.SiteUrl+"/bundles/org_styles"
     };
     ViewBag.Js = new string[]{
-        "~/bundles/page_scripts"
+        SiteConfig.SiteUrl+"/bundles/page_scripts"
     };
 }
 <div class="col-md-7">
     <div class="col-sm-12 org-btn">
-        <a class="btn btn-warning btn-white" href="~/Org/Register" role="button">新增社团</a>
-        <a class="btn btn-warning btn-right" href="~/Org/Search" role="button">社团查询</a>
+        <a class="btn btn-warning btn-white" href="@SiteConfig.SiteUrl/Org/Register" role="button">新增社团</a>
+        <a class="btn btn-warning btn-right" href="@SiteConfig.SiteUrl/Org/Search/Page/1" role="button">社团查询</a>
     </div>
     <div class="col-sm-12 fw-border">
         <table class="table">
@@ -31,7 +31,7 @@
                     <tr>
                         <td>@item.OrgName</td>
                         <td>@item.OrgDepartment</td>
-                        <td><a href="~/Org/Update/OrgID/@item.OrgID" class="btn btn-warning">修改</a> <a href="~/Org/Del/OrgID/@item.OrgID" class="btn btn-default">注销</a></td>
+                        <td><a href="@SiteConfig.SiteUrl/Org/Update/OrgID/@item.OrgID" class="btn btn-warning">修改</a> <a href="@SiteConfig.SiteUrl/Org/Del/OrgID/@item.OrgID" class="btn btn-default">注销</a></td>
                     </tr>
                 }
 
@@ -48,10 +48,10 @@
                 @{int j = (int)Math.Ceiling((double)ViewBag.Count / 10.0);}
                 @for (int i = 1; i < j + 1; i++)
                 {
-                    <li><a href="~/Org/Search/Page/@(i)" class="pageli" id="pageli@(i)">@(i)</a></li>
+                    <li><a href="@SiteConfig.SiteUrl/Org/Search/Page/@(i)" class="pageli" id="pageli@(i)">@(i)</a></li>
                 }
                 <li>
-                    <a href="~/Org/Search/Page/" aria-label=" next" id="next">
+                    <a href="@SiteConfig.SiteUrl/Org/Search/Page/" aria-label=" next" id="next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

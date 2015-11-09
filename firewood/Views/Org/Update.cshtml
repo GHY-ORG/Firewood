@@ -3,17 +3,18 @@
     Layout = "~/Views/Shared/Org_Layout.cshtml";
     ViewBag.Title = "社团/组织后台管理 柴火 | 西南财经大学学生活动发布平台";
     ViewBag.Css = new string[]{
-        "~/bundles/org_styles"
+        SiteConfig.SiteUrl+"/bundles/org_styles"
     };
 }
+@{var item = @ViewBag.Org;}
 <div class="col-md-7">
     <div class="col-sm-12 org-btn">
-        <a class="btn btn-warning btn-white" href="~/Org/Register" role="button">新增社团</a>
-        <a class="btn btn-warning btn-right" href="~/Org/Search" role="button">社团查询</a>
+        <a class="btn btn-warning btn-white" href="@SiteConfig.SiteUrl/Org/Register" role="button">新增社团</a>
+        <a class="btn btn-warning btn-right" href="@SiteConfig.SiteUrl/Org/Search" role="button">社团查询</a>
     </div>
     <div class="col-sm-12 fw-border">
         <div class="col-sm-4">
-            <img src="~/PicPool/Get/ID/@ViewBag.OrgID/Type/1/Size/150x150">
+            <img src="@SiteConfig.SiteUrl/PicPool/Get/ID/@item.OrgID/Type/1/Size/150x150">
         </div>
         <div class="col-sm-8">
             @using (Html.BeginForm("PostUpdate", "Org", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
@@ -22,13 +23,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">名称</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" disabled="disabled" value="@ViewBag.OrgName">
+                        <input type="text" class="form-control" disabled="disabled" value="@item.OrgName">
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(x => x.OrgDepartment, new { @class = "col-md-4 control-label" })
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(x => x.OrgDepartment, new { @class = "form-control", required = "required", @Value = @ViewBag.OrgDepartment })
+                        @Html.TextBoxFor(x => x.OrgDepartment, new { @class = "form-control", required = "required", @Value = @item.OrgDepartment })
                     </div>
                     <div class="col-md-8 col-md-offset-4 error-text">
                         @Html.ValidationMessageFor(x => x.OrgDepartment)
@@ -37,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">联系方式</label>
                     <div class="col-sm-8">
-                        @Html.TextBoxFor(x => x.OrgContact, new { @class = "form-control", required = "required", @type = "tel", @Value = @ViewBag.OrgContact })
+                        @Html.TextBoxFor(x => x.OrgContact, new { @class = "form-control", required = "required", @type = "tel", @Value = @item.OrgContact })
                     </div>
                     <div class="col-md-8 col-md-offset-4 error-text">
                         @Html.ValidationMessageFor(x => x.OrgContact)
@@ -46,7 +47,7 @@
                 <div class="form-group">
                     @Html.LabelFor(x => x.OrgIntro, new { @class = "col-md-4 control-label" })
                     <div class="col-sm-8">
-                        <textarea name="OrgIntro" rows="5" class="form-control" required>@ViewBag.OrgIntro</textarea>
+                        <textarea name="OrgIntro" rows="5" class="form-control" required>@item.OrgIntroduction</textarea>
                     </div>
                     <div class="col-md-8 col-md-offset-4 error-text">
                         @Html.ValidationMessageFor(x => x.OrgIntro)

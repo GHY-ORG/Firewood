@@ -36,7 +36,8 @@ namespace BLL
         #endregion
 
         #region 通过OrgID获取活动
-        public List<Activity> GetActListByOrgID(Guid orgid, int n, int page){
+        public List<Activity> GetActListByOrgID(Guid orgid, int n, int page)
+        {
             return actHandler.GetActByOrgID(orgid, n, page);
         }
         #endregion
@@ -124,6 +125,24 @@ namespace BLL
         public int GetActCountByOrgID(Guid orgid)
         {
             return actHandler.GetActCount(orgid);
+        }
+        #endregion
+
+        #region GetTopActList
+        public List<Activity> GetTopActList()
+        {
+            List<Guid> actidList = joinHandler.GetTopActList();
+            List<Activity> actList = new List<Activity>(5);
+            int actidListCount = actList.Count();
+            if (actidListCount < 5)
+            {
+                for (int i = 0; i < actidListCount; i++) actList.Add(GetActByActID(actidList[i]));
+            }
+            else
+            {
+                for (int i = 0; i < 5; i++) actList.Add(GetActByActID(actidList[i]));
+            }
+            return actList;
         }
         #endregion
     }

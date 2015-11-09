@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+body{
+	font-family: "微软雅黑";
+	background-image: url('../img/bg.jpg');
+	background-color: #F7A349;
+	background-attachment: fixed;
+}
+#main{
+	max-width: 640px;
+	width: 95%;
+	margin: 20px auto;
+	padding: 10px;
+}
+h3{
+	background-color: #FDE8B6;
+	border-radius: 20px;
+	padding: 30px;
+	box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	overflow: hidden;
+}
+h3>span{
+	color:#C0B7AB;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 5px;
+}
+#map{
+	background-color: #FDE8B6;
+	border-radius: 20px;
+	padding: 60px 20px;
+	margin-top: 20px;
+	box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.3);
+}
+#map .bar{
+	height: 150px;
+	border: 10px dashed #fff;
+	margin:0 5px;
+	border-color: #fff;
+}
+#map .bar1{
+	margin-left: 20px;
+	border-left-width: 0;
+	border-bottom-width: 0;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+#map .bar2{
+	margin-right: 20px;
+	border-right-width: 0;
+	border-bottom-width: 0;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+#map .bar3{
+	margin-left: 20px;
+	border-left-width: 0;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+.container-fluid{
+	position: relative;
+	z-index: 100;
+	margin-top:-550px;
+}
+.container-fluid .row{
+	margin-bottom: 70px;
+}
+.container-fluid span{
+	display: block;
+	width:80px;
+	line-height:60px;
+	padding: 5px;
+	font-size: 16px;
+	text-align: center;
+	color: #ddd;
+	background-color: #EC6941;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border:6px solid #fff;
+	border-radius: 100px;
+	margin: 0 auto;
+	cursor: pointer;
+}
+#footer{
+	margin-top: -40px;
+	text-align: center;
+	letter-spacing: 6px;
+}
+#flag{
+	float: left;
+	position:relative;
+	z-index: 1000;
+	margin-top: -600px;
+}

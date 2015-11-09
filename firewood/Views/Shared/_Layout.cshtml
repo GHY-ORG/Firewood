@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +10,11 @@
     {
         @Styles.Render(i);
     }
-    @Scripts.Render(SiteConfig.SiteUrl+"/bundles/jquery")
+    @Scripts.Render(SiteConfig.SiteUrl + "/bundles/jquery")
     <!--[if lt IE 9]>
         @Scripts.Render(SiteConfig.SiteUrl + "/bundles/ie8")
     <![endif]-->
 </head>
-
 <body>
     <!--Top-->
     <ul class="hidden-xs hidden-sm nav-top">
@@ -110,7 +108,7 @@
             <div class="col-md-9">
                 <ul class="nav-list">
                     <li class="dropdown" id="nav1">
-                        <a href="" title="比赛"></a>
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/比赛" title="比赛"></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="nav1">
                             <li role="presentation">
                                 <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/文娱">文娱</a>
@@ -130,7 +128,7 @@
                         </ul>
                     </li>
                     <li class="dropdown" id="nav2">
-                        <a href="" title="讲座"></a>
+                        <a href="@SiteConfig.SiteUrl/Home/Index/Type/1/Class/讲座" title="讲座"></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="nav2">
                             <li role="presentation">
                                 <a role="menuitem" tabindex="-1" href="@SiteConfig.SiteUrl/Home/Index/Type/2/Class/宣讲会">宣讲会</a>
@@ -173,7 +171,9 @@
             else
             {
                 <div class="hidden-xs hidden-sm col-md-3 nav-right" id="after-log">
-                    <div class="visible-lg-block user-img" id="user-pic"></div>
+                    <div class="visible-lg-block">
+                        <img src="@SiteConfig.SiteUrl/PicPool/Get/ID/@ViewBag.UserID/Type/3/Size/60x60" class="img-circle" alt="">
+                    </div>
                     <div class="user-name">
                         <span>您好：</span>
                         <span id="uname">@ViewBag.NickName</span>
@@ -257,12 +257,10 @@
             <p>tel:028-87092700 email:ghyers@ghy.cn</p>
         </div>
     </footer>
-
     @Scripts.Render(SiteConfig.SiteUrl + "/bundles/scripts")
     @foreach (var i in ViewBag.Js ?? new string[] { })
     {
         @Scripts.Render(i);
     }
 </body>
-
 </html>

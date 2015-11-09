@@ -94,12 +94,12 @@ namespace BLL
         /// </summary>
         /// <param name="orgidList"></param>
         /// <returns></returns>
-        public List<Org> GetOrgList(string[] orgidList)
+        public List<Org> GetOrgList(List<Guid> orgidList)
         {
-            List<Org> orgList = new List<Org>(orgidList.Length);
-            foreach (string item in orgidList)
+            List<Org> orgList = new List<Org>(orgidList.Count());
+            foreach (Guid item in orgidList)
             {
-                orgList.Add(orgHandler.GetOrgByID(new Guid(item)));
+                orgList.Add(orgHandler.GetOrgByID(item));
             }
             return orgList;
         }

@@ -8,12 +8,22 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using BLL;
+using System.ComponentModel.Composition;
+using Hub.Interface.User;
 
 namespace firewood.Controllers
 {
     [RoutePrefix("PicPool")]
     public class PicPoolController : Controller
     {
+        public IAccountStrategy AccountStrategy
+        {
+            get
+            {
+                return SiteConfig.Container.GetExportedValueOrDefault<IAccountStrategy>();
+            }
+        }
+
         static Cache cache = HttpRuntime.Cache;
 
         /// <summary>
@@ -41,10 +51,10 @@ namespace firewood.Controllers
         }
 
         /// <summary>
-        /// 获取图片
+        /// 获取图片 宽度固定
         /// </summary>
         /// <param name="id">社团组织或活动的Guid</param>
-        /// <param name="type">1:社团组织 2:活动</param>
+        /// <param name="type">1:社团组织 2:活动 3:用户</param>
         /// <param name="width">0代表原图</param>
         /// <returns></returns>
         [HttpGet]
@@ -85,9 +95,9 @@ namespace firewood.Controllers
             else
             {
                 string path = "";
-
-                if (type == 1) path = SiteConfig.SitePath + orgService.GetPathByID(id);
-                else if (type == 2) path = SiteConfig.SitePath + actService.GetPathByID(id);
+                if (type == 1) path = "E:\\web\\Firewood\\" + orgService.GetPathByID(id);
+                else if (type == 2) path = "E:\\web\\Firewood\\" + actService.GetPathByID(id);
+                else if (type == 3) path = "E:\\web\\GHY_SSO\\" + AccountStrategy.GetAvatarByUserID(id);
 
                 if (!System.IO.File.Exists(path)) return null;
                 else

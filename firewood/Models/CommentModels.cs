@@ -18,7 +18,7 @@ namespace firewood
 
         public bool hasJoin { get; set; }
 
-        public string UserPic { get; set; }
+        public Guid UserID { get; set; }
 
         public string NickName { get; set; }
     }

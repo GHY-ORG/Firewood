@@ -6,8 +6,6 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Web;
 
-
-
 namespace firewood
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -19,7 +17,7 @@ namespace firewood
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            SiteConfig.SiteUrl = "http://localhost:2816";
+            SiteConfig.SiteUrl = "http://ghy.cn/firewood"; // "http://localhost:2816";
             SiteConfig.SitePath = HttpContext.Current.Server.MapPath("~");
 
             //设置MEF依赖注入容器

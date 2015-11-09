@@ -26,22 +26,18 @@ namespace firewood.Controllers
         [Route("PostLogin")]
         public ActionResult PostLogin()
         {
-            //HttpCookie cookie = Request.Cookies["ghy_sso_token"];
-            //if (cookie != null)
-            //{
-            //    string token = cookie.Value;
-            //    Hub.Models.Token token_record = AuthentiationStrategy.GetSessionByToken(token, AuthentiationStrategy.CreateCheckCode(Request.UserAgent, Request.UserHostAddress));
-            //    if (token_record != null)
-            //    {
-            //        Session["User"] = token_record.UserID;
-            //        return Redirect("~/Home/Index");
-            //    }
-            //}
-            //return Redirect("http://ghy.swufe.edu.cn/ghy_sso/user/login?ReturnUrl=" + SiteConfig.SiteUrl + "/user/login");
-
-
-            Session["User"] = "4c36a36d-b58a-417e-b62b-dd72fad39371";
-            return Redirect(SiteConfig.SiteUrl);
+            HttpCookie cookie = Request.Cookies["ghy_sso_token"];
+            if (cookie != null)
+            {
+                string token = cookie.Value;
+                Hub.Models.Token token_record = AuthentiationStrategy.GetSessionByToken(token, AuthentiationStrategy.CreateCheckCode(Request.UserAgent, Request.UserHostAddress));
+                if (token_record != null)
+                {
+                    Session["User"] = token_record.UserID;
+                    return Redirect(SiteConfig.SiteUrl + "/Home/Index");
+                }
+            }
+            return Redirect("http://ghy.cn/ghy_sso/user/login?ReturnUrl=" + SiteConfig.SiteUrl + "/user/login");
         }
 
         [Route("Login")]
@@ -61,9 +57,9 @@ namespace firewood.Controllers
             if (token_record != null)
             {
                 Session["User"] = token_record.UserID;
-                return Redirect("~/Home/Index");
+                return Redirect(SiteConfig.SiteUrl+"/Home/Index");
             }
-            return Redirect("~/User/PostLogin");
+            return Redirect(SiteConfig.SiteUrl+"/User/PostLogin");
         }
         #endregion
 
@@ -85,7 +81,7 @@ namespace firewood.Controllers
                 myCookie.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(myCookie);
             }
-            return Redirect("~/Home/Index");
+            return Redirect(SiteConfig.SiteUrl+"/Home/Index");
         }
         #endregion
 
@@ -93,7 +89,7 @@ namespace firewood.Controllers
         [Route("Register")]
         public ActionResult Register()
         {
-            return Redirect("http://ghy.swufe.edu.cn/ghy_sso/user/register");
+            return Redirect("http://ghy.cn/ghy_sso/user/register");
         }
         #endregion
 
@@ -102,9 +98,11 @@ namespace firewood.Controllers
         [Route("Center")]
         public ActionResult Center()
         {
-            if (Session["User"] == null) return Redirect("~/Home/Index");
-            ViewData["ActList"] = actService.GetActByUserID(new Guid(Session["User"].ToString()));
+            if (Session["User"] == null) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            Guid userid = new Guid(Session["User"].ToString());
+            ViewData["ActList"] = actService.GetActByUserID(userid);
             ViewBag.NickName = Session["NickName"].ToString();
+            ViewBag.UserID = userid;
             return View();
         }
         #endregion

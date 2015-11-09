@@ -77,56 +77,28 @@
     </div>
     <div class="hidden-xs hidden-sm col-md-4 col-lg-3 col-lg-offset-1 index-right">
         <div class="fw-border">
-            <div class="title" id="my-events"></div>
-            <p>
-                <a href="">今日 15:30 - 情人坡音乐LIVE</a>
-            </p>
-            <p>
-                <a href="">明日 13:55 - CNKI论文数据库使用培训</a>
-            </p>
-            <p>
-                <a href="">11月16日 - 财务案例大赛半决赛</a>
-            </p>
-            <p>
-                <a href="">12月19日 - GHY年终趴</a>
-            </p>
+            <div class="title" id="topic-events"></div>
+            @foreach (var item in ViewData["TopActList"] as List<Activity>)
+            {
+                <p><a href="@SiteConfig.SiteUrl/Act/Index/ID/@item.ActID" target="_blank" title="@item.ActName">[@item.BeginTime.ToString("yyyy-MM-dd")] @item.ActName</a></p>
+            }
         </div>
         <div class="fw-border">
-            <div class="title" id="topic-events"></div>
+            <div class="title" id="my-events"></div>
             <p>
-                <a href="">“时光任意门”校园影像大赛</a>
-            </p>
-            <p>
-                <a href="">光华园网站音乐网情人坡音乐LIVE</a>
-            </p>
-            <p>
-                <a href="">第三届财务案例大赛半决赛</a>
-            </p>
-            <p>
-                <a href="">CNKI论文数据库使用培训</a>
-            </p>
-            <p>
-                <a href="">第五届环球商务之旅系列赛</a>
-            </p>
-            <p>
-                <a href="">第十一届闪亮之星</a>
+                <a href="@SiteConfig.SiteUrl/index.html" title="社团/组织注册流程" target="_blank">社团/组织注册流程</a>
             </p>
         </div>
         <div class="fw-border join-us">
             <div class="title" id="join-us"></div>
             <div class="row">
-                <div class="col-md-4">
-                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
-                    <h5>轮滑社</h5>
-                </div>
-                <div class="col-md-4">
-                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
-                    <h5>森林音乐社</h5>
-                </div>
-                <div class="col-md-4">
-                    <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" style="width: 60px; height: 60px;">
-                    <h5>学生实验超市</h5>
-                </div>
+                @foreach (var item in ViewData["OrgList"] as List<Org>)
+                {
+                    <div class="col-md-4">
+                        <img src="@SiteConfig.SiteUrl/PicPool/Get/ID/@item.OrgID/Type/1/Size/65x65" class="img-circle">
+                        <h5>@item.OrgName</h5>
+                    </div>
+                }
             </div>
         </div>
     </div>

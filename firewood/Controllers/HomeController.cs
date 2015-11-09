@@ -3,17 +3,26 @@ using System.ComponentModel.Composition;
 using System.Web.Mvc;
 using Hub.Interface.User;
 using BLL;
+using System.Web;
 
 namespace firewood.Controllers
 {
     [RoutePrefix("Home")]
     public class HomeController : Controller
     {
+
         public IAccountStrategy AccountStrategy
         {
             get
             {
                 return SiteConfig.Container.GetExportedValueOrDefault<IAccountStrategy>();
+            }
+        }
+        public IAuthorizeStrategy AuthorizeStrategy
+        {
+            get
+            {
+                return SiteConfig.Container.GetExportedValueOrDefault<IAuthorizeStrategy>();
             }
         }
 
@@ -24,6 +33,11 @@ namespace firewood.Controllers
         public ActionResult Index()
         {
             validUser();
+
+            //显示右边的东西
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(9, 1);
+
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.ShowIndexAct(8, 1);
             return View();
@@ -34,6 +48,10 @@ namespace firewood.Controllers
         public ActionResult Index(int type, string classname)
         {
             validUser();
+
+            //显示右边的东西
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(9, 1);
 
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.GetActByClass(type, classname, 8, 1);
@@ -47,6 +65,10 @@ namespace firewood.Controllers
         {
             validUser();
 
+            //显示右边的东西
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(9, 1);
+
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.GetActByPlace(place, 8, 1);
 
@@ -58,6 +80,10 @@ namespace firewood.Controllers
         public ActionResult Index(int type)
         {
             validUser();
+
+            //显示右边的东西
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(9, 1);
 
             //显示活动（标题、简介、社团组织logo）
             if (type == 1) ViewData["ActList"] = actService.GetActByMoney(8, 1);
@@ -71,6 +97,10 @@ namespace firewood.Controllers
         public ActionResult Search(string title)
         {
             validUser();
+
+            //显示右边的东西
+            ViewData["TopActList"] = actService.GetTopActList();
+            ViewData["OrgList"] = orgService.ShowAllOrg(9, 1);
 
             //显示活动（标题、简介、社团组织logo）
             ViewData["ActList"] = actService.GetActByTitle(title, 8, 1);
@@ -89,11 +119,12 @@ namespace firewood.Controllers
             else
             {
                 Guid userid = new Guid(Session["User"].ToString());
+                ViewBag.UserID = userid;
                 ViewBag.NickName = AccountStrategy.GetNickNameByUserID(userid);
                 Session["NickName"] = ViewBag.NickName;
 
                 //判断权限
-                ViewBag.RoleList = new int[2] { 2, 3 };// AuthorizeStrategy.GetRole(userid);
+                ViewBag.RoleList = AuthorizeStrategy.GetRole(userid);
                 Session["RoleList"] = ViewBag.RoleList;
             }
         }

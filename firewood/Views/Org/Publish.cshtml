@@ -3,11 +3,11 @@
     Layout = "~/Views/Shared/Org_Layout.cshtml";
     ViewBag.Title = "社团/组织发布活动 柴火 | 西南财经大学学生活动发布平台";
     ViewBag.Css = new string[]{
-        "~/bundles/form_styles",
-        "~/bundles/org_styles"
+        SiteConfig.SiteUrl+"/bundles/form_styles",
+        SiteConfig.SiteUrl+"/bundles/org_styles"
     };
     ViewBag.Js = new string[]{
-        "~/bundles/publish_scripts"
+        SiteConfig.SiteUrl+"/bundles/publish_scripts"
     };
 }
 

@@ -116,7 +116,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\styles.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="img\bg.jpg" />
+    <Content Include="img\flag.png" />
+    <Content Include="img\foot.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="index.html" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\index.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\move.js" />
     <Content Include="Resources\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Site\img\ghy-logo.png" />
@@ -176,7 +188,9 @@
     <Content Include="Resources\Site\js\index.js" />
     <Content Include="Resources\Site\js\page.js" />
     <Content Include="Resources\Site\js\publish.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

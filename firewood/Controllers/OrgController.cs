@@ -31,11 +31,10 @@ namespace firewood.Controllers
         [Route("Index")]
         public ActionResult Index()
         {
-            ViewBag.NickName = Session["NickName"].ToString();
-            int[] roleList = Session["RoleList"] as int[];
-            if (roleList == null) return Redirect("~/Home/Index");
-            //ViewData["OrgList"] = orgService.GetOrgList(AuthorizeStrategy.GetRoleName(roleList));
-            ViewData["OrgList"] = orgService.GetOrgList(new string[2] { "bde3644c-47f7-427e-b13d-0f3242f03a4c", "f8cb16ba-c753-449a-9f48-b6093c32b482" });
+            if (Session["RoleList"] == null) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            ShowUser();
+
+            ViewData["OrgList"] = orgService.GetOrgList(AuthorizeStrategy.GetRoleName(Session["RoleList"] as int[]));
             return View();
         }
 
@@ -43,11 +42,12 @@ namespace firewood.Controllers
         [Route("ShowAct/ID/{id:guid}/Page/{page:int}")]
         public ActionResult ShowAct(Guid id, int page)
         {
-            ViewBag.NickName = Session["NickName"].ToString();
-            if (Session["RoleList"] == null) return Redirect("~/Home/Index");
+            if (Session["RoleList"] == null) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            ShowUser();
+
             ViewBag.OrgID = id;
-            ViewData["ActList"] = actService.GetActListByOrgID(id, 8, page);
             ViewBag.Count = actService.GetActCountByOrgID(id);
+            ViewData["ActList"] = actService.GetActListByOrgID(id, 8, page);
             return View();
         }
 
@@ -55,21 +55,10 @@ namespace firewood.Controllers
         [Route("Register")]
         public ActionResult Register()
         {
-            ViewBag.NickName = Session["NickName"].ToString();
             int[] roleList = Session["RoleList"] as int[];
-            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect("~/Home/Index");
-            return View();
-        }
+            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
 
-        [HttpGet]
-        [Route("Search")]
-        public ActionResult Search()
-        {
-            ViewBag.NickName = Session["NickName"].ToString();
-            int[] roleList = Session["RoleList"] as int[];
-            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect("~/Home/Index");
-            ViewBag.Count = orgService.GetOrgCount();
-            ViewData["OrgList"] = orgService.ShowAllOrg(10, 1);
+            ShowUser();
             return View();
         }
 
@@ -77,9 +66,10 @@ namespace firewood.Controllers
         [Route("Search/Page/{page:int}")]
         public ActionResult Search(int page)
         {
-            ViewBag.NickName = Session["NickName"].ToString();
             int[] roleList = Session["RoleList"] as int[];
-            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect("~/Home/Index");
+            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            ShowUser();
+
             ViewBag.Count = orgService.GetOrgCount();
             ViewData["OrgList"] = orgService.ShowAllOrg(10, page);
             return View();
@@ -89,17 +79,13 @@ namespace firewood.Controllers
         [Route("Update/OrgID/{id:guid}")]
         public ActionResult Update(Guid id)
         {
-            ViewBag.NickName = Session["NickName"].ToString();
             int[] roleList = Session["RoleList"] as int[];
-            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect("~/Home/Index");
+            if (roleList == null || roleList.Except(new int[1] { 1 }).Count() != 0) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            ShowUser();
 
             Session["OrgID"] = id;
             Org org = orgService.GetOrgByID(id);
-            ViewBag.OrgID = id;
-            ViewBag.OrgName = org.OrgName;
-            ViewBag.OrgDepartment = org.OrgDepartment;
-            ViewBag.OrgContact = org.OrgContact;
-            ViewBag.OrgIntro = org.OrgIntroduction;
+            ViewBag.Org = org;
             return View();
         }
 
@@ -107,7 +93,9 @@ namespace firewood.Controllers
         [Route("Publish/ID/{id:guid}")]
         public ActionResult Publish(Guid id)
         {
-            ViewBag.NickName = Session["NickName"].ToString();
+            if (Session["RoleList"] == null) return Redirect(SiteConfig.SiteUrl+"/Home/Index");
+            ShowUser();
+
             Session["OrgID"] = id;
             return View();
         }
@@ -129,43 +117,45 @@ namespace firewood.Controllers
                 return View("Register", model);
             }
 
-            Org org = new Org();
-            org.OrgID = Guid.NewGuid();
-            org.OrgName = model.OrgName;
-            org.OrgContact = model.OrgContact;
-            org.OrgDepartment = model.OrgDepartment;
-            org.OrgIntroduction = model.OrgIntro;
+            Org org = new Org
+            {
+                OrgID = Guid.NewGuid(),
+                OrgName = model.OrgName,
+                OrgContact = model.OrgContact,
+                OrgDepartment = model.OrgDepartment,
+                OrgIntroduction = model.OrgIntro
+            };
 
             //图片不超过5M
-            if (file != null && file.ContentLength < 1024 * 1024 * 5)
+            if (file == null && file.ContentLength > 1024 * 1024 * 5)
             {
-                string path = GetPath(org.OrgID.ToString(), "Org") + DateTime.Now.Ticks + ".png";
-                string absolutePath = SiteConfig.SitePath;
-                string pathWithFileName = absolutePath + path;
-                using (var stream = file.InputStream)
-                {
-                    Image img = Image.FromStream(stream);
-                    var bmp = ResizeImg(img);
-                    if (!System.IO.Directory.Exists(absolutePath))
-                        System.IO.Directory.CreateDirectory(absolutePath);
-                    bmp.Save(pathWithFileName, ImageFormat.Png);
-                }
-                org.OrgPic = path;
+                ModelState.AddModelError("", "请上传规定大小的图片");
+                return View("Register", model);
+            }
 
-                if (orgService.Register(org))
-                {
-                    Session["Org"] = org;
-                    return Content("<script>alert('注册成功~');window.location.href='Search'</script>");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "注册异常");
-                    return View("Register", model);
-                }
+            //验证通过后
+            string absolutePath = "E:\\web\\Firewood\\";// SiteConfig.SitePath;
+            string path = GetPath("Org");
+            string fullPath = absolutePath + path;
+            string url = path + org.OrgID.ToString() + ".png";
+            using (var stream = file.InputStream)
+            {
+                Image img = Image.FromStream(stream);
+                var bmp = ResizeImg(img);
+                if (!System.IO.Directory.Exists(fullPath))
+                    System.IO.Directory.CreateDirectory(fullPath);
+                bmp.Save(absolutePath+url, ImageFormat.Png);
+            }
+            org.OrgPic = url;
+
+            if (orgService.Register(org))
+            {
+                Session["Org"] = org;
+                return Content("<script>alert('注册成功~');window.location.href='Search/Page/1'</script>");
             }
             else
             {
-                ModelState.AddModelError("", "请上传规定大小的图片");
+                ModelState.AddModelError("", "注册异常");
                 return View("Register", model);
             }
         }
@@ -176,14 +166,11 @@ namespace firewood.Controllers
         {
             Guid OrgID = new Guid(Session["OrgID"].ToString());
             Org org = orgService.GetOrgByID(OrgID);
-            ViewBag.OrgName = org.OrgName;
-            ViewBag.OrgDepartment = org.OrgDepartment;
-            ViewBag.OrgContact = org.OrgContact;
-            ViewBag.OrgIntro = org.OrgIntroduction;
+            ViewBag.Org = org;
 
             if (!ModelState.IsValid)
             {
-                return Redirect("http://www.ghy.cn");
+                return View("Update",model);
             }
             org.OrgID = OrgID;
             org.OrgContact = model.OrgContact;
@@ -208,51 +195,51 @@ namespace firewood.Controllers
         {
             if (!ModelState.IsValid) return View("Publish", model);
 
-            Activity act = new Activity();
-            act.ActID = Guid.NewGuid();
-            act.OrgID = new Guid(Session["OrgID"].ToString());
-            act.ActName = model.ActName;
-            act.Place = model.Place;
-            act.Class1 = model.Class1;
-            act.Class2 = model.Class2;
-            act.BeginTime = model.BeginTime;
-            act.EndTime = model.EndTime;
-            act.ActIntro = model.ActIntro;
-            act.MoneyState = model.Money.Equals("yes") ? 1 : 0;
-            act.ScoreState = model.Score.Equals("yes") ? 1 : 0;
-            act.AwardState = model.Award.Equals("yes") ? 1 : 0;
-            act.VoteState = model.Vote.Equals("yes") ? 1 : 0;
-
             //图片不超过20M
-            if (file != null && file.ContentLength < 1024 * 1024 * 20)
+            if (file == null && file.ContentLength > 1024 * 1024 * 20)
             {
+                ModelState.AddModelError("", "请上传规定大小的图片");
+                return View("Publish", model);
+            }
 
-                string path = GetPath(act.ActID.ToString(), "Act")+ DateTime.Now.Ticks + ".png";
-                string absolutePath = SiteConfig.SitePath;
-                string pathWithFileName = absolutePath + path;
-                using (var stream = file.InputStream)
-                {
-                    Image img = Image.FromStream(stream);
-                    var bmp = ResizeImg(img);
-                    if (!System.IO.Directory.Exists(absolutePath))
-                        System.IO.Directory.CreateDirectory(absolutePath);
-                    bmp.Save(pathWithFileName, ImageFormat.Png);
-                }
-                act.ActPic = path;
+            //验证通过后
+            Activity act = new Activity
+            {
+                ActID = Guid.NewGuid(),
+                OrgID = new Guid(Session["OrgID"].ToString()),
+                ActName = model.ActName,
+                Place = model.Place,
+                Class1 = model.Class1,
+                Class2 = model.Class2,
+                BeginTime = model.BeginTime,
+                EndTime = model.EndTime,
+                ActIntro = model.ActIntro,
+                MoneyState = model.Money.Equals("yes") ? 1 : 0,
+                ScoreState = model.Score.Equals("yes") ? 1 : 0,
+                AwardState = model.Award.Equals("yes") ? 1 : 0,
+                VoteState = model.Vote.Equals("yes") ? 1 : 0
+            };
+            string absolutePath = "E:\\web\\Firewood\\";// SiteConfig.SitePath;
+            string path = GetPath("Act");
+            string fullPath = absolutePath + path;
+            string url = path + act.ActID.ToString() + ".png";
+            using (var stream = file.InputStream)
+            {
+                Image img = Image.FromStream(stream);
+                var bmp = ResizeImg(img);
+                if (!System.IO.Directory.Exists(fullPath))
+                    System.IO.Directory.CreateDirectory(fullPath);
+                bmp.Save(absolutePath + url, ImageFormat.Png);
+            }
+            act.ActPic = url;
 
-                if (actService.Publish(act))
-                {
-                    return Content("<script>alert('发布成功~');window.location.href='Index'</script>");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "注册异常");
-                    return View("Publish", model);
-                }
+            if (actService.Publish(act))
+            {
+                return Content("<script>alert('发布成功~');window.location.href='Index'</script>");
             }
             else
             {
-                ModelState.AddModelError("", "请上传规定大小的图片");
+                ModelState.AddModelError("", "注册异常");
                 return View("Publish", model);
             }
         }
@@ -263,7 +250,7 @@ namespace firewood.Controllers
         {
             if (orgService.Delete(id))
             {
-                return Redirect("~/Org/Search");
+                return Redirect(SiteConfig.SiteUrl+"/Org/Search");
             }
             else return Content("<script>alert('注销异常~');</script>");
         }
@@ -286,20 +273,20 @@ namespace firewood.Controllers
             }
             return new Bitmap(input);
         }
-        private string GetPath(string name, string foldername)
+        private string GetPath(string foldername)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("FirewoodImages\\");
             sb.Append(foldername);
             sb.Append("\\");
-            sb.Append(name);
+            sb.Append(DateTime.Now.Year+"\\"+DateTime.Now.Month+"\\"+DateTime.Now.Day);
             sb.Append("\\");
             return sb.ToString();
         }
-
-        private void validAdminUser()
+        private void ShowUser()
         {
-
+            ViewBag.NickName = Session["NickName"].ToString();
+            ViewBag.UserID = Session["User"].ToString();
         }
         #endregion
     }

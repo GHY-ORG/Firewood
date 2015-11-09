@@ -126,6 +126,10 @@ a:hover {
 .fw-nav .nav-list > li .dropdown-menu {
   margin: 0;
 }
+.fw-nav .nav-list > li a {
+  display: block;
+  height: inherit;
+}
 .fw-nav .nav-list #nav1 {
   width: 73px;
 }
@@ -169,13 +173,6 @@ a:hover {
 }
 .fw-nav .nav-right > div {
   float: left;
-}
-.fw-nav .nav-right .user-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  border: 2px solid #fff;
-  background-color: #c5c5c5;
 }
 .fw-nav .nav-right .user-name {
   width: 100px;
@@ -359,7 +356,7 @@ footer #footer-right > div {
   }
 }
 .index-right #my-events {
-  background-position: -160px 0;
+  background-position: -160px -240px;
 }
 .index-right #topic-events {
   background-position: 0 -60px;
